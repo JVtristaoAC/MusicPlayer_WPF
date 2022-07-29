@@ -24,31 +24,11 @@ namespace MusicPlayer
     {
         private MediaPlayer mediaPlayer = new MediaPlayer();
 
-        DispatcherTimer timer = new DispatcherTimer();
 
         public MainWindow()
         {
             InitializeComponent();
-        }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                mediaPlayer.Open(new Uri(openFileDialog.FileName));
-                
-            }
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            mediaPlayer.Play();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
@@ -58,16 +38,30 @@ namespace MusicPlayer
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
             timer.Start();
-
-           
         }
 
-        private void timer_Tick()
+
+         void timer_Tick(Object sender, EventArgs e)
         {
             if (mediaPlayer.Source != null)
                 lblStatus.Content = String.Format("{0} / {1}", mediaPlayer.Position.ToString(@"mm\:ss"), mediaPlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
             else
                 lblStatus.Content = "No file selected...";
+        }
+
+        private void Tocar_Click(object sender, RoutedEventArgs e)
+        { 
+            mediaPlayer.Play(); 
+        }
+
+        private void Pausar_Click(object sender, RoutedEventArgs e)
+        {
+            mediaPlayer.Pause();
+        }
+
+        private void Parar_Click(object sender, RoutedEventArgs e)
+        {
+            mediaPlayer.Stop();
         }
     }
 }
