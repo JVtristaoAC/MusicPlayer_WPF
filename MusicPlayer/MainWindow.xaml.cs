@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
+
 namespace MusicPlayer
 {
     /// <summary>
@@ -23,28 +24,26 @@ namespace MusicPlayer
     public partial class MainWindow : Window
     {
         private MediaPlayer mediaPlayer = new MediaPlayer();
-
+        DispatcherTimer timer = new DispatcherTimer();
 
         public MainWindow()
         {
             InitializeComponent();
 
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*";
-            if (openFileDialog.ShowDialog() == true)
-                mediaPlayer.Open(new Uri(openFileDialog.FileName));
-
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += timer_Tick;
-            timer.Start();
         }
 
 
-         void timer_Tick(Object sender, EventArgs e)
+         private void Timer_Tick(Object sender, EventArgs e)
         {
             if (mediaPlayer.Source != null)
-                lblStatus.Content = String.Format("{0} / {1}", mediaPlayer.Position.ToString(@"mm\:ss"), mediaPlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
+                try {
+                    //AUDIO LIGADO PELO AMOR DE DEUS :>
+                    lblStatus.Content = String.Format("{0} / {1}", mediaPlayer.Position.ToString(@"mm\:ss"), mediaPlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Tente Ligar o Audio se estiver desabilitado.");
+                }
             else
                 lblStatus.Content = "No file selected...";
         }
@@ -63,5 +62,35 @@ namespace MusicPlayer
         {
             mediaPlayer.Stop();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+                mediaPlayer.Open(new Uri(openFileDialog.FileName));
+
+            
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Mudar_Click(object sender, RoutedEventArgs e)
+        {
+            timer.Stop();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+                mediaPlayer.Open(new Uri(openFileDialog.FileName));
+
+            
+            
+            timer.Start();
+
+
+        }
+            
+        }
     }
-}
+

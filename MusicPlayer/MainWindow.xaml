@@ -6,13 +6,14 @@
         xmlns:local="clr-namespace:MusicPlayer"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        >
+        Loaded="Window_Loaded">
     <Grid>
-        <Label Content="Não Tocando..." x:Name="lblStatus" HorizontalAlignment="Left" Margin="343,151,0,0" VerticalAlignment="Top"/>
-        
+        <Label Content="Não Tocando..." x:Name="lblStatus" HorizontalAlignment="Left" Margin="354,151,0,0" VerticalAlignment="Top"/>
+
         <Button Content="Tocar" HorizontalAlignment="Left" Margin="308,197,0,0" x:Name="Tocar" VerticalAlignment="Top" Click="Tocar_Click"  Width="46"/>
         <Button Content="Pausar" HorizontalAlignment="Center" Margin="0,197,0,0" x:Name="Pausar" VerticalAlignment="Top" Click="Pausar_Click"  Width="46"/>
-        <Button Content="Parar" HorizontalAlignment="Left" Margin="448,197,0,0" x:Name="Parar" VerticalAlignment="Top" Click="Parar_Click"  Width="46"/>
+        <Button Content="Zerar" HorizontalAlignment="Left" Margin="365,237,0,0" x:Name="Parar" VerticalAlignment="Top" Click="Parar_Click"  Width="66"/>
+        <Button Content="Mudar" HorizontalAlignment="Left" Margin="444,197,0,0" x:Name="Mudar" VerticalAlignment="Top" Click="Mudar_Click"  Width="46"/>
 
     </Grid>
 </Window>
