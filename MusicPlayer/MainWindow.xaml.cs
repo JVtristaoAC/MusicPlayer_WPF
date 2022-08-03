@@ -36,11 +36,12 @@ namespace MusicPlayer
          private void Timer_Tick(Object sender, EventArgs e)
         {
             if (mediaPlayer.Source != null)
-                try {
+                try
+                {
                     //AUDIO LIGADO PELO AMOR DE DEUS :>
                     lblStatus.Content = String.Format("{0} / {1}", mediaPlayer.Position.ToString(@"mm\:ss"), mediaPlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss"));
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("Tente Ligar o Audio se estiver desabilitado.");
                 }
@@ -65,10 +66,12 @@ namespace MusicPlayer
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*";
-            if (openFileDialog.ShowDialog() == true)
-                mediaPlayer.Open(new Uri(openFileDialog.FileName));
+            //OpenFileDialog openFileDialog = new OpenFileDialog();
+            //openFileDialog.Filter = "MP3 files (*.mp3)|*.mp3|All files (*.*)|*.*";
+            //if (openFileDialog.ShowDialog() == true)
+            //    mediaPlayer.Open(new Uri(openFileDialog.FileName));
+
+            mediaPlayer.Open(new Uri(System.Environment.CurrentDirectory + "/resources/Arctic Monkeys - Do I Wanna Know_ (Official Video)(MP3_320K).mp3", UriKind.Relative));
 
             
             timer.Interval = TimeSpan.FromSeconds(1);
